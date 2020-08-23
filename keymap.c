@@ -5,6 +5,7 @@
 #define _LOWER 1
 #define _RAISE 2
 #define _CAPS 3
+#define _FN 4
 #define _ADJUST 16
 #define _LOWERCAPS 17
 
@@ -130,14 +131,22 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define WIN_V LGUI(KC_V)
 #define L_DESC LGUI(LCTL(KC_LEFT))
 #define R_DESC LGUI(LCTL(KC_RGHT))
+#define P_TOYS LGUI(LALT(KC_SPC))
 #define M_TASK LGUI(KC_TAB)
 #define LO_SPC LT(_LOWER, KC_SPC)
 #define RA_ENT LT(_RAISE, KC_ENT)
 #define LO_F13 LT(_LOWER, KC_F13)
 #define RA_F14 LT(_RAISE, KC_F14)
+#define CTL_F13 CTL_T(KC_F13)
+#define SFT_F14 SFT_T(KC_F14)
+#define M_LOWER MO(_LOWER)
+#define M_RAISE MO(_RAISE)
+#define M_CAPS MO(_CAPS)
 #define TD_CTL TD(TD_FN_CTL)
 #define TD_SFT TD(TD_FN_SFT)
 #define ALT_TAB ALT_T(KC_TAB)
+#define SFT_TAB LSFT(KC_TAB)
+#define M_FN MO(_FN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -152,11 +161,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Ctrl |  GUI |  ALt | EISU |||||||| Lower| Space|Delete|||||||| Bksp | Enter| Raise|||||||| Left | Down |  Up  | Right|
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
-  [_QWERTY] = LAYOUT( \
-    KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_TAB,           KC_RBRC, KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_MINS, \
-    KC_SCLN, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_F13,           KC_F14,  KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   XXXXXXX,          XXXXXXX, KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_EQL, \
-    KC_LALT,  KC_LGUI, KC_LALT, KC_LCTL, LOWER,   KC_SPC, XXXXXXX,          XXXXXXX, KC_ENT, RAISE,  KC_LSFT, KC_LALT, KC_APP,  KC_F14 \
+  [_QWERTY] = LAYOUT(
+    KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KVM_1,            KVM_2,   KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_EQL, \
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KVM_3,            KVM_4,   KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_MINS, \
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   XXXXXXX,          XXXXXXX, KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, M_FN, \
+    KC_LCTL, KC_LGUI, KC_LALT, CTL_F13, LOWER,  KC_SPC, XXXXXXX,          XXXXXXX, KC_ENT, RAISE,  SFT_F14, KC_LALT, KC_APP,  KC_LCTL \
   ),
 
   /* Lower
@@ -171,17 +180,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
   [_LOWER] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KVM_1,         KVM_2,   KC_DEL,  XXXXXXX, KC_UP,   KC_TAB, XXXXXXX, XXXXXXX, \
-    CAPS,    KC_LCTL, KC_LSFT, KC_LGUI, KC_LALT, KC_ESC,  KVM_3,         KVM_4,   KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  WIN_V,   XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, KC_F14,  KC_TAB,  XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, _______, _______, _______, LOWER,   _______, XXXXXXX,       XXXXXXX, KC_F13,  RAISE,   _______, _______, _______, _______ \
-  ),
+  	KC_ENT, KC_ESC, KC_HOME, KC_UP,   KC_END,  XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, \
+    KC_LCTL, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  XXXXXXX,          XXXXXXX, XXXXXXX, KC_LCTL, KC_LSFT, KC_LALT, KC_LGUI, KC_PSCR, \
+    KC_LSFT, XXXXXXX, KC_PGUP, KC_PGDN, WIN_V, KC_BSPC,  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, _______, _______, _______, LOWER,   _______, XXXXXXX,          XXXXXXX, _______, RAISE,   _______, L_DESC,  M_TASK,  R_DESC \
+  ), 
 
   [_CAPS] = LAYOUT(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, KC_DEL,  XXXXXXX, KC_UP,   KC_TAB,  XXXXXXX, XXXXXXX, \
-    CAPS,    KC_LCTL, KC_LSFT, KC_LGUI, KC_LALT, KC_ESC,  XXXXXXX,       XXXXXXX, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, KC_TAB,  XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, _______, _______, _______, LOWER,   _______, XXXXXXX,       XXXXXXX, _______, RAISE,   _______, _______, _______, _______ \
+    XXXXXXX, P_TOYS,  L_DESC,  M_TASK,  R_DESC,  XXXXXXX, XXXXXXX,          XXXXXXX, KC_HOME,  KC_PGDN,  KC_PGUP,   KC_END, XXXXXXX, XXXXXXX, \
+    M_CAPS,  KC_LALT, KC_LSFT, KC_LCTL, KC_LGUI, KC_ESC,  XXXXXXX,          XXXXXXX, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL, WIN_V,    XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, \
+    _______, _______, _______, _______, KC_F13,  KC_SPC,  XXXXXXX,          XXXXXXX, KC_ENT,  KC_F14,  _______, _______, _______, _______ \
   ),
 
   /* Raise
@@ -196,10 +205,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * ,----------------------------------------------------------------------------------------------------------------------.
   */
   [_RAISE] = LAYOUT(
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_LCBR,          KC_RCBR, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS, \
-    KC_COLN, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,          XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DQT, \
-    _______, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_COLN, XXXXXXX,          XXXXXXX, KC_PIPE, KC_BSLS, KC_LT,   KC_GT,   KC_QUES, KC_PLUS, \
-    _______, _______, _______, _______, LOWER,   _______, XXXXXXX,          XXXXXXX, _______, RAISE,   _______, _______, KVM_PRV, KVM_NXT \
+    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,          XXXXXXX, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS, \
+    KC_DQT,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,          XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_UNDS, \
+    KC_QUOT, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_PIPE, XXXXXXX,          XXXXXXX, KC_BSLS, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, KC_COLN, \
+    _______, _______, _______, _______, LOWER,   _______, XXXXXXX,          XXXXXXX, _______, RAISE, _______, _______, _______, _______ \
   ),
 
   /* Adjust
@@ -214,17 +223,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
   [_ADJUST] = LAYOUT(
-    KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX,\
-    _______, XXXXXXX, L_DESC,  M_TASK,  R_DESC,  KC_DEL,  KC_ENT,           XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END,  XXXXXXX, XXXXXXX, \
+  	XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,          XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12, \
-  	_______, KC_APP,  XXXXXXX, XXXXXXX, LOWER,   XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, RAISE,   XXXXXXX, _______, _______, _______ \
+  	XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  	XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
   ),
 
-  [_LOWERCAPS] = LAYOUT(
-  	XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,  KC_ENT,           XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END,  XXXXXXX, XXXXXXX, \
-  	CTL_S_Z, CTL_Z,   CTL_X,   CTL_C,   CTL_V,   XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  	_______, _______, _______, _______, LOWER,   _______, XXXXXXX,          XXXXXXX, _______, RAISE,   _______, _______, _______, _______ \
+  [_FN] = LAYOUT(
+  	KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  	KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  	XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  	XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, KC_LGUI, KC_LCTL, KC_LSFT, KC_LALT, _______ \
   )
 };
 
