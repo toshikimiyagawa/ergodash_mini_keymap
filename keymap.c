@@ -54,13 +54,20 @@ enum custom_keycodes {
 #define CTL_X LCTL(KC_X)
 #define CTL_C LCTL(KC_C)
 #define CTL_V LCTL(KC_V)
-#define SFT_ENT SFT_T(KC_ENT)
+#define SFT_ENT LSFT(KC_ENT)
 #define TO_QW TO(_QWERTY)
 #define TO_LO TO(_LOWER)
 #define TX_UP LCTL(LALT(LSFT(KC_UP)))
 #define TX_DOWN LCTL(LALT(LSFT(KC_DOWN)))
 #define TX_RGHT LCTL(LALT(LSFT(KC_RIGHT)))
 #define TX_LEFT LCTL(LALT(LSFT(KC_LEFT)))
+
+enum user_macro {
+  UM_MHEN,
+  UM_HENK,
+};
+#define M_MHEN  MACROTAP(UM_MHEN)
+#define M_HENK  MACROTAP(UM_HENK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -76,10 +83,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
   [_QWERTY] = LAYOUT(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_TILD,          KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_GRV,           KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
     KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LBRC,          KC_RBRC, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
     KC_ESC,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XXXXXXX,          XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSPC, \
-    KC_LSFT, KC_LGUI, KC_LALT, KC_F13,  LOWER,   KC_SPC,  XXXXXXX,          XXXXXXX, KC_ENT,  RAISE,   KC_F14,  KC_BSLS, M_FN,    KC_DEL   \
+    KC_LSFT, KC_LGUI, KC_LALT, KC_LCTL, M_MHEN,  KC_SPC,  XXXXXXX,          XXXXXXX, KC_ENT,  M_HENK,  KC_LSFT,  KC_BSLS, M_FN,    KC_DEL   \
   ),
 
   /* Lower
@@ -96,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
   	_______, XXXXXXX, KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  XXXXXXX,          XXXXXXX, XXXXXXX, KC_LALT, KC_LSFT, KC_LCTL, KC_LGUI, XXXXXXX, \
-    KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,          XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12, \
+    _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,          XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX, \
     _______, _______, _______, _______, _______, KC_LALT, XXXXXXX,          XXXXXXX, SFT_ENT, _______, _______, _______, XXXXXXX, XXXXXXX \
   ), 
 
@@ -119,10 +126,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * ,----------------------------------------------------------------------------------------------------------------------.
   */
   [_RAISE] = LAYOUT(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_TILD,          KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
-    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LBRC,          KC_RBRC, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-    KC_ESC,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XXXXXXX,          XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSPC, \
-    KC_LSFT, KC_LGUI, KC_LALT, KC_F13,  LOWER,   KC_SPC,  XXXXXXX,          XXXXXXX, KC_ENT,  RAISE,   KC_F14,  KC_BSLS, M_FN,    KC_DEL   \
+    _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_TILD,          KC_PLUS, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS, \
+    KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_LCBR,          KC_RCBR, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_COLN, KC_DQT, \
+    KC_F12,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,          XXXXXXX, KC_PIPE, KC_BSLS, KC_LT,   KC_GT,   KC_QUES, KC_COLN, \
+    _______, _______, _______, _______, _______, _______, XXXXXXX,          XXXXXXX, _______, _______, _______, KC_PIPE, _______, _______ \
   ),
 
   /* Adjust
@@ -137,10 +144,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------------------------------------------------------------.
    */
   [_ADJUST] = LAYOUT(
-    _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_TILD,          KC_PLUS, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_UNDS, \
-    _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LBRC,          KC_RBRC, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DQT, \
-    _______, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_COLN, XXXXXXX,          XXXXXXX, XXXXXXX, KC_COLN, KC_LT,   KC_GT,   KC_QUES, KC_COLN, \
-    _______, _______, _______, _______, _______, _______, XXXXXXX,          XXXXXXX, _______, _______, _______, KC_PIPE, _______, _______ \
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_GRV,           KC_EQL,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_MINS, \
+    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LBRC,          KC_RBRC, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+    KC_ESC,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XXXXXXX,          XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSPC, \
+    KC_LSFT, KC_LGUI, KC_LALT, KC_F13,  LOWER,   KC_SPC,  XXXXXXX,          XXXXXXX, KC_ENT,  RAISE,   KC_F14,  KC_BSLS, M_FN,    KC_DEL   \
   ),
 
   [_FN] = LAYOUT(
@@ -153,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case LOWER:
+/*    case LOWER:
       if (record->event.pressed) {
         unregister_code(KC_RSFT);
         layer_on(_LOWER);
@@ -184,6 +191,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+      */
     case ADJUST:
       if (record->event.pressed) {
         layer_on(_ADJUST);
@@ -269,4 +277,28 @@ void keyboard_post_init_user(void) {
   debug_keyboard=true;
   //debug_mouse=true;
   #endif 
+}
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+  dprintf( "record.\n"
+      "  event.pressed = %u\n"
+      "  tap.count = %u\n"
+      "  tap.interrupted = %u\n"
+      , record->event.pressed
+      , record->tap.count
+      , record->tap.interrupted );
+  dprintf( "id = %u\n", id );
+  dprintf( "opt = %u\n", opt );
+
+  switch(id) {
+
+    case UM_MHEN: {
+                    return MACRO_TAP_HOLD_LAYER( record, MACRO(TYPE(KC_F13), END), _LOWER );
+                  } break;
+
+    case UM_HENK: {
+                    return MACRO_TAP_HOLD_LAYER( record, MACRO(TYPE(KC_F14), END), _RAISE );
+                  } break;
+  }
+  return MACRO_NONE;
 }
